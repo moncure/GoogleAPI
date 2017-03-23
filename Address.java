@@ -7,7 +7,6 @@
 
 
 import org.json.JSONObject;
-import org.json.JSONException;
 import java.net.MalformedURLException;
 import java.io.IOException;
 
@@ -46,7 +45,7 @@ public class Address {
     	this.latitude = latitude;
     	this.longitude = longitude;
     	this.json = null;
-    	getMailingAddress();
+    	getGoogleMailingAddress();
     	
     }
     
@@ -106,7 +105,7 @@ public class Address {
     //******************************************************************************
     //******************************************************************************   
     
-    public void showAddressInBrowser(){
+    public void showLatitudeAndLongitudeMapInBrowser(){
     	//Using the latitude and longitude, show a specific location on a Google map in the browser.
     	Browser b = new Browser();
     	String addy = "http://maps.google.com/?q=" +  latitude +  ","  +longitude;
@@ -118,7 +117,68 @@ public class Address {
     //******************************************************************************  
     
     
-    
+    //******************************************************************************
+    //******************************************************************************
+    /*
+     * getGoogleMailingAddress uses the latitude and longitude to make a GoogleMapsAPI call
+     *            GoogleMaps returns a JSON object from which the class variables 
+     *            streetAddress, city, state, and zip can be changed or initialized.
+     */
+     private void getGoogleMailingAddress(){
+      	GoogleAPIKey k = new GoogleAPIKey();
+      	
+          this.json = getGoogleJSONObject(googleURL + "?latlng=" + latitude + "," + longitude + "&" +k.getGoogleAPIKey());
+      	
+      	String jsonString = json.toString();
+      	//System.out.println(jsonString);
+      	int indexOfFormattedAddress = jsonString.indexOf("\"formatted_address\"");
+      	//System.out.println(indexOfFormattedAddress);
+      	//System.out.println(jsonString.substring(indexOfFormattedAddress+21));
+      	
+      	//get the street address
+      	char[] jsonArray = jsonString.toCharArray();
+      	
+      	
+      	
+      	int indexOfStreet = indexOfFormattedAddress+21;
+      	int i = indexOfStreet;
+      	
+      	while(!(jsonArray[i] == ',') ){
+      		i++;
+      	}
+      	//i is the index of the last character in the street address
+      	streetAddress = jsonString.substring(indexOfStreet, i);
+      	//System.out.println("The street address is: " + streetAddress);
+      	
+      	i = i+2;  //move past the comma to begin with the city
+      	int indexOfCity = i;
+      	while(!(jsonArray[i] == ',') ){
+      		i++;
+      	}
+      	city = jsonString.substring(indexOfCity, i);
+      	//System.out.println("The city is: " + city);
+      	
+      	i = i+2;
+      	int indexOfState = i;
+      	while(!(jsonArray[i] == ' ') ){
+      		i++;
+      	}
+      	state = jsonString.substring(indexOfState, i);
+      	//System.out.println("The state is: " + state);
+      	
+      	i++; //remove the leading space;
+      	int indexOfZip = i;
+      	while(!(jsonArray[i] == ',') ){
+      		i++;
+      	}
+      	zipCode = jsonString.substring(indexOfZip, i);
+      	//System.out.println("The zipCode is: " + zipCode);
+      	
+      	
+      	
+      	
+      	
+      }
     
     
     
@@ -287,63 +347,7 @@ public class Address {
         
     }
     
-  //******************************************************************************
-  //******************************************************************************
-    public void getMailingAddress(){
-    	GoogleAPIKey k = new GoogleAPIKey();
-    	
-        this.json = getGoogleJSONObject(googleURL + "?latlng=" + latitude + "," + longitude + "&" +k.getGoogleAPIKey());
-    	
-    	String jsonString = json.toString();
-    	//System.out.println(jsonString);
-    	int indexOfFormattedAddress = jsonString.indexOf("\"formatted_address\"");
-    	//System.out.println(indexOfFormattedAddress);
-    	//System.out.println(jsonString.substring(indexOfFormattedAddress+21));
-    	
-    	//get the street address
-    	char[] jsonArray = jsonString.toCharArray();
-    	
-    	
-    	
-    	int indexOfStreet = indexOfFormattedAddress+21;
-    	int i = indexOfStreet;
-    	
-    	while(!(jsonArray[i] == ',') ){
-    		i++;
-    	}
-    	//i is the index of the last character in the street address
-    	streetAddress = jsonString.substring(indexOfStreet, i);
-    	//System.out.println("The street address is: " + streetAddress);
-    	
-    	i = i+2;  //move past the comma to begin with the city
-    	int indexOfCity = i;
-    	while(!(jsonArray[i] == ',') ){
-    		i++;
-    	}
-    	city = jsonString.substring(indexOfCity, i);
-    	//System.out.println("The city is: " + city);
-    	
-    	i = i+2;
-    	int indexOfState = i;
-    	while(!(jsonArray[i] == ' ') ){
-    		i++;
-    	}
-    	state = jsonString.substring(indexOfState, i);
-    	//System.out.println("The state is: " + state);
-    	
-    	i++; //remove the leading space;
-    	int indexOfZip = i;
-    	while(!(jsonArray[i] == ',') ){
-    		i++;
-    	}
-    	zipCode = jsonString.substring(indexOfZip, i);
-    	//System.out.println("The zipCode is: " + zipCode);
-    	
-    	
-    	
-    	
-    	
-    }
+ 
  //******************************************************************************
  //******************************************************************************
       
@@ -367,7 +371,7 @@ public class Address {
     	//find the index of the comma
     	
     	char[] locationArray = location.toCharArray();
-    	int length = locationArray.length;
+    	
     	
     	int i = indexOfLng + 5;
     	
@@ -387,10 +391,7 @@ public class Address {
     //******************************************************************************
     //****************************************************************************** 
     
-     public static void main(String[] args){
-    	 
-    	 
-     }
+    
             
     
 }
