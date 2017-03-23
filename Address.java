@@ -110,11 +110,25 @@ public class Address {
     	Browser b = new Browser();
     	String addy = "http://maps.google.com/?q=" +  latitude +  ","  +longitude;
     	b.openBrowser(addy);
-    	//-37.866963,144.980615
+    	
     	
     }
-    //******************************************************************************
-    //******************************************************************************  
+  //******************************************************************************
+  //******************************************************************************  
+  //showStreetViewInBrowser uses the GoogleMaps API to show a location in the Browser using the street view
+    
+    public void showStreetViewInBrowser(){
+    	Browser b = new Browser();
+    	GoogleAPIKey k = new GoogleAPIKey();
+    	
+    	//pitch  (default 0) defines the angle variance "up" or "down" from the camera's initial default pitch, which is often (but not always) flat horizontal. 
+    	//heading (default 0) defines the rotation angle around the camera locus in degrees relative from true north. Headings are measured clockwise (90 degrees is true east).
+    	
+    	String addy = "https://maps.googleapis.com/maps/api/streetview?size=600x300&location="+
+    		 latitude + "," + longitude + "&heading=-70&pitch=-0.5&key=" + 
+    		 k.getGoogleAPIKey();
+    	b.openBrowser(addy);
+    }
     
     
     //******************************************************************************
