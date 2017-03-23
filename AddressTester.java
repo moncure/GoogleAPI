@@ -23,6 +23,7 @@ public class AddressTester {
                "Texas","78239");
        boolean case3 = "29.5022944".equals(b.getLatitude());
        boolean case4 = "-98.36279379999999".equals(b.getLongitude());
+       b.showStreetViewInBrowser();
        
        
        
@@ -47,7 +48,8 @@ public class AddressTester {
       
        c.showJSONInBrowser();
        c.showLatitudeAndLongitudeMapInBrowser();
-         
+       
+       
   	   
        
        
