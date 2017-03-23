@@ -1,5 +1,7 @@
 # GoogleAPI
 The GoogleAPI repository uses java to access the GoogleMAP API.
+These class files were built using the json-20140107.jar found at https://mvnrepository.com/artifact/org.json/json/20140107
+This library will need to be included in your build path.
 
 Address object uses the GoogleMaps API to derive fields such as latitude and longitude.
 
