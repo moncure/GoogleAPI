@@ -15,11 +15,8 @@ import java.net.URISyntaxException;
  * @author Amy
  */
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URI;
-import java.lang.RuntimeException;
+
+
 
 public class Browser {
     
@@ -27,9 +24,9 @@ public class Browser {
     
     
     
-    //open the default web browswer using a specific URL
+    //open the default web browser using a specific URL
     //the JSON object is written to the browser
-    public void openBrowswer(String url){
+    public void openBrowser(String url){
         
         if(Desktop.isDesktopSupported()){
             Desktop desktop = Desktop.getDesktop();
@@ -52,8 +49,8 @@ public class Browser {
     
     
     public static void main(String[] args){
-        //Browser b = new Browser();
-        //b.openBrowswer("http://www.google.com");
+        Browser b = new Browser();
+        b.openBrowser("http://www.google.com");
         
         
     }
