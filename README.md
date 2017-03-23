@@ -138,7 +138,10 @@ Address object uses the GoogleMaps API to derive fields such as latitude and lon
     	 */
     
      public void showLatitudeAndLongitudeMapInBrowser(){}
-     //Using send a request using GoogleMapsAPI using the latitude and longitude to display a location in GoogleMaps.
+     //Using GoogleMapsAPI  and using the latitude and longitude to display a location in GoogleMaps.
+     
+     public void showStreetViewInBrowser(){}
+     //Using GoogleMaps API show the street view of an Address in the web browser
     
       
    
