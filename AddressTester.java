@@ -46,7 +46,8 @@ public class AddressTester {
        boolean case10 = zipCode.equals("11211");
       
        c.showJSONInBrowser();
-       c.showAddressInBrowser();
+       c.showLatitudeAndLongitudeMapInBrowser();
+         
   	   
        
        
@@ -57,7 +58,7 @@ public class AddressTester {
        
        
      a.showJSONInBrowser();
-     a.showAddressInBrowser();
+     a.showLatitudeAndLongitudeMapInBrowser();
        
        
        
